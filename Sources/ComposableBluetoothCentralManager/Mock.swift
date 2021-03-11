@@ -6,7 +6,7 @@ import CoreBluetooth
 
 #if DEBUG
     public extension CentralManager {
-        static func mock() -> Self {
+        static func unimplemented() -> Self {
             Self()
         }
     }

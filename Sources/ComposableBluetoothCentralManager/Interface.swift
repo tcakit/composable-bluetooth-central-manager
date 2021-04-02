@@ -20,6 +20,9 @@ public struct CentralManager {
         case willRestore(state: StateRestorationOptions)
 
         case didUpdateANCSAuthorizationFor(peripheral: CBPeripheral)
+        
+        case peripherals([CBPeripheral])
+        case connectedPeripherals([CBPeripheral])
     }
 
     var create: (AnyHashable, DispatchQueue?, [String: Any]?) -> Effect<Action, Never> = { _, _, _ in _unimplemented("create") }
@@ -30,9 +33,9 @@ public struct CentralManager {
 
     var cancelPeripheralConnection: (AnyHashable, CBPeripheral) -> Effect<Never, Never> = { _, _ in _unimplemented("cancelPeripheralConnection") }
 
-    var retrieveConnectedPeripherals: (AnyHashable, [CBUUID]) -> [CBPeripheral] = { _, _ in _unimplemented("retrieveConnectedPeripherals") }
+    var retrieveConnectedPeripherals: (AnyHashable, [CBUUID]) -> Effect<Never, Never>  = { _, _ in _unimplemented("retrieveConnectedPeripherals") }
 
-    var retrievePeripherals: (AnyHashable, [UUID]) -> [CBPeripheral] = { _, _ in _unimplemented("retrievePeripherals") }
+    var retrievePeripherals: (AnyHashable, [UUID]) -> Effect<Never, Never>  = { _, _ in _unimplemented("retrievePeripherals") }
 
     var scanForPeripherals: (AnyHashable, [CBUUID]?, [String: Any]?) -> Effect<Never, Never> = { _, _, _ in _unimplemented("scanForPeripherals") }
 
@@ -77,11 +80,11 @@ public struct CentralManager {
 
     /// Retrieving Lists of Peripherals
 
-    public func retrieveConnectedPeripherals(id: AnyHashable, withServices: [CBUUID]) -> [CBPeripheral] {
+    public func retrieveConnectedPeripherals(id: AnyHashable, withServices: [CBUUID]) -> Effect<Never, Never>  {
         retrieveConnectedPeripherals(id, withServices)
     }
 
-    public func retrievePeripherals(id: AnyHashable, withIdentifiers: [UUID]) -> [CBPeripheral] {
+    public func retrievePeripherals(id: AnyHashable, withIdentifiers: [UUID]) -> Effect<Never, Never>  {
         retrievePeripherals(id, withIdentifiers)
     }
 

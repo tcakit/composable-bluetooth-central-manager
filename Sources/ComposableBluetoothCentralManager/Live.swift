@@ -43,11 +43,19 @@ public extension CentralManager {
         }
 
         manager.retrieveConnectedPeripherals = { id, services in
-            dependencies[id]?.manager.retrieveConnectedPeripherals(withServices: services) ?? [CBPeripheral]()
+            .fireAndForget {
+                if let connectedPeripherals = dependencies[id]?.manager.retrieveConnectedPeripherals(withServices: services) {
+                    dependencies[id]?.subscriber.send(.connectedPeripherals(connectedPeripherals))
+                }
+            }
         }
 
         manager.retrievePeripherals = { id, identifiers in
-            dependencies[id]?.manager.retrievePeripherals(withIdentifiers: identifiers) ?? [CBPeripheral]()
+            .fireAndForget {
+                if let peripherals = dependencies[id]?.manager.retrievePeripherals(withIdentifiers: identifiers) {
+                    dependencies[id]?.subscriber.send(.peripherals(peripherals))
+                }
+            }
         }
 
         manager.scanForPeripherals = { id, services, options in

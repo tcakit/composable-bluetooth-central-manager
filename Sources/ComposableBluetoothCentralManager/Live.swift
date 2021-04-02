@@ -43,11 +43,11 @@ public extension CentralManager {
         }
 
         manager.retrieveConnectedPeripherals = { id, services in
-            dependencies[id]?.manager.retrieveConnectedPeripherals(withServices: services)
+            dependencies[id]?.manager.retrieveConnectedPeripherals(withServices: services) ?? [CBPeripheral]()
         }
 
         manager.retrievePeripherals = { id, identifiers in
-            dependencies[id]?.manager.retrievePeripherals(withIdentifiers: identifiers)
+            dependencies[id]?.manager.retrievePeripherals(withIdentifiers: identifiers) ?? [CBPeripheral]()
         }
 
         manager.scanForPeripherals = { id, services, options in

@@ -79,7 +79,7 @@ public extension CentralManager {
         #endif
 
         manager.state = { id in
-            guard let dependency = dependencies[id] else { preconditionFailure("invalid dependency") }
+            guard let dependency = dependencies[id] else { return CBManagerState.unknown }
             return dependency.manager.state
         }
 
